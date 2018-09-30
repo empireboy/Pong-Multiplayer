@@ -8,12 +8,25 @@
 		private void Awake()
 		{
 			_networkManager = GetComponent<NetworkManager>();
+			StopClient();
 		}
 
 		public void StartHost()
 		{
-			if (!NetworkServer.active && !NetworkClient.active)
+			if (!NetworkServer.active)
 				_networkManager.StartHost();
+		}
+
+		public void StartClient()
+		{
+			if (!NetworkClient.active)
+				_networkManager.StartClient();
+		}
+
+		public void StopClient()
+		{
+			if (NetworkClient.active)
+				_networkManager.StopClient();
 		}
 	}
 }
