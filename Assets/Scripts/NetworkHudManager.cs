@@ -13,7 +13,7 @@
 
 		public void StartHost()
 		{
-			if (!NetworkServer.active)
+			if (!NetworkServer.active && _networkManager.networkAddress != "")
 				_networkManager.StartHost();
 		}
 
@@ -27,6 +27,16 @@
 		{
 			if (NetworkClient.active)
 				_networkManager.StopClient();
+		}
+
+		public void ChangeScene(string scene)
+		{
+			_networkManager.ServerChangeScene(scene);
+		}
+
+		public void SetAddress(string address)
+		{
+			_networkManager.networkAddress = address;
 		}
 	}
 }

@@ -3,8 +3,7 @@
 namespace UnityEngine.Networking
 {
 	[RequireComponent(typeof(RectTransform))]
-	[RequireComponent(typeof(Button))]
-	public class NetworkButton : MonoBehaviour
+	public class NetworkUI : MonoBehaviour
 	{
 		public void StartHost()
 		{
@@ -14,6 +13,16 @@ namespace UnityEngine.Networking
 		public void StartClient()
 		{
 			FindObjectOfType<NetworkHudManager>().StartClient();
+		}
+
+		public void ChangeScene(string scene)
+		{
+			FindObjectOfType<NetworkHudManager>().ChangeScene(scene);
+		}
+
+		public void SetAddress(string address)
+		{
+			FindObjectOfType<NetworkHudManager>().SetAddress(address);
 		}
 	}
 }
