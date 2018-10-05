@@ -1,16 +1,12 @@
 ﻿using System.Net;
 using System.Net.Sockets;
-using UnityEngine.Events;
+using UnityEngine;
+using UnityEngine.Networking;
 
-namespace UnityEngine.Networking
+namespace CM.Networking
 {
-	public class NetworkManagerExt : NetworkManager
+	public class CM_NetworkManager : NetworkManager
 	{
-		public delegate void StartClientHandler(NetworkClient client);
-		public event StartClientHandler StartClientEvent;
-		public delegate void DisconnectedClientHandler(NetworkConnection conn);
-		public event DisconnectedClientHandler DisconnectedClientEvent;
-
 		public string LocalIPAddress()
 		{
 			IPHostEntry host;
@@ -56,22 +52,6 @@ namespace UnityEngine.Networking
 			{
 				StartHost();
 			}
-		}
-
-		public override void OnStartClient(NetworkClient client)
-		{
-			base.OnStartClient(client);
-
-			if (StartClientEvent != null)
-				StartClientEvent(client);
-		}
-
-		public override void OnClientDisconnect(NetworkConnection conn)
-		{
-			base.OnClientDisconnect(conn);
-
-			if (DisconnectedClientEvent != null)
-				DisconnectedClientEvent(conn);
 		}
 	}
 }

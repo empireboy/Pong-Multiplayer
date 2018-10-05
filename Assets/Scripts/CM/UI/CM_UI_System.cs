@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine;
 
 namespace CM.UI
 {
@@ -40,6 +37,11 @@ namespace CM.UI
 				_currentScreen.gameObject.SetActive(true);
 				_currentScreen.Open();
 			}
+		}
+
+		public virtual void TurnOffCurrentScreen()
+		{
+			_currentScreen.Close();
 		}
 	}
 }
