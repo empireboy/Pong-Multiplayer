@@ -32,6 +32,7 @@ namespace CM.UI
 		{
 			_currentScreen = startScreen;
 			_currentScreen.Open();
+			InitializeScreens();
 
 			if (fader)
 				fader.gameObject.SetActive(true);

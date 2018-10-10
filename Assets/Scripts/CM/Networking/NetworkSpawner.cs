@@ -8,10 +8,12 @@ namespace UnityEngine.Networking
 	{
 		[SerializeField] private GameObject _ball;
 
-		public void SpawnBall()
+		public GameObject SpawnBall()
 		{
 			GameObject ball = Instantiate(_ball);
 			NetworkServer.Spawn(ball);
+
+			return ball;
 		}
 	}
 }

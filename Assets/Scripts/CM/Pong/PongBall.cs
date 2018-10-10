@@ -13,6 +13,8 @@ namespace CM.Networking
 		private float _radius;
 		private Vector2 _direction;
 
+		private bool _canMove = false;
+
 		private void Start()
 		{
 			if (!isServer)
@@ -26,6 +28,9 @@ namespace CM.Networking
 
 		private void Update()
 		{
+			if (!_canMove)
+				return;
+
 			transform.Translate(_direction * _speed * Time.deltaTime);
 
 			float height = 2f * Camera.main.orthographicSize;
@@ -43,12 +48,12 @@ namespace CM.Networking
 			if (transform.position.x < -width / 2 + _radius)
 			{
 				NetworkServer.Destroy(gameObject);
-				FindObjectOfType<PongGameManager>().NetworkSpawner.SpawnBall();
+				FindObjectOfType<PongGameManager>().StartRound();
 			}
 			if (transform.position.x > width / 2 - _radius)
 			{
 				NetworkServer.Destroy(gameObject);
-				FindObjectOfType<PongGameManager>().NetworkSpawner.SpawnBall();
+				FindObjectOfType<PongGameManager>().StartRound();
 			}
 		}
 
@@ -62,6 +67,11 @@ namespace CM.Networking
 			{
 				_direction.x = -_direction.x;
 			}
+		}
+
+		public void SetMovable(bool movable)
+		{
+			_canMove = movable;
 		}
 	}
 }

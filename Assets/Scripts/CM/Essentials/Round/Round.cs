@@ -5,12 +5,7 @@ namespace CM.Essentials
 {
 	public class Round : MonoBehaviour
 	{
-		public static short MsgRoundState = MsgType.Highest + 1;
-
-		public enum RoundStates
-		{
-			Started
-		}
+		[SerializeField] private bool _debug;
 
 		private Timer _setupTimer = new Timer();
 		public Timer SetupTimer
@@ -26,15 +21,6 @@ namespace CM.Essentials
 			get
 			{
 				return _endTimer;
-			}
-		}
-
-		private bool _started = false;
-		public bool Started
-		{
-			get
-			{
-				return _started;
 			}
 		}
 
@@ -55,39 +41,64 @@ namespace CM.Essentials
 			_endTimer.Finished += OnEndTimerFinished;
 		}
 
+		private void Start()
+		{
+			if (_debug)
+			{
+				_setupTimer.debug = true;
+				_endTimer.debug = true;
+			}
+		}
+
 		public void Starting()
 		{
+			if (_debug)
+				Debug.Log(this + " Start Event");
+
 			if (RoundStart != null)
 				RoundStart();
-
-			_started = true;
 		}
 
 		public void Ending()
 		{
+			if (_debug)
+				Debug.Log(this + " End Event");
+
 			if (RoundEnd != null)
 				RoundEnd();
 		}
 
 		public void Setup()
 		{
+			if (_debug)
+				Debug.Log("Round Setup Event");
+
 			if (RoundSetup != null)
 				RoundSetup();
 		}
 
 		public void Finish()
 		{
+			if (_debug)
+				Debug.Log(this + " Finished Event");
+
 			if (RoundFinish != null)
 				RoundFinish();
 		}
 
 		private void OnSetupTimerFinished()
 		{
+			if (_debug)
+				Debug.Log(this + " OnSetupTimerFinished");
+
 			Starting();
 		}
 
 		private void OnEndTimerFinished()
 		{
+			if (_debug)
+				Debug.Log(this + " OnEndTimerFinished");
+
 			Finish();
 		}
 	}

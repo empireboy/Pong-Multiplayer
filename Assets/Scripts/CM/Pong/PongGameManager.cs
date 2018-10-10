@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using CM.Essentials;
 using UnityEngine.Networking;
+using CM.Networking;
 
 namespace CM.Pong
 {
 	public class PongGameManager : MonoBehaviour, IRound
 	{
+		[SerializeField] private bool _simulateRoundStart = false;
+
 		private Round _round;
 		public Round Round()
 		{
@@ -22,26 +25,35 @@ namespace CM.Pong
 			}
 		}
 
+		private bool _gameInitialized = false;
+
 		private void Awake()
 		{
 			_round = GetComponent<Round>();
 			_networkSpawner = GetComponent<NetworkSpawner>();
 		}
 
-		private void Update()
+		private void Start()
 		{
-			if (NetworkServer.connections.Count >= 2 && !_round.Started)
-			{
-				//_round.SetupTimer.Start(3);
-				_round.RoundStart += OnRoundStart;
-				_round.Starting();
-				//_round.Setup();
-			}
+			if (_simulateRoundStart)
+				StartRound();
 		}
 
-		private void OnRoundStart()
+		public void StartRound()
 		{
 			_networkSpawner.SpawnBall();
+
+			_round.Setup();
+			_round.SetupTimer.Start(3);
+		}
+
+		private void Update()
+		{
+			if (NetworkServer.connections.Count >= 2 && !_gameInitialized)
+			{
+				StartRound();
+				_gameInitialized = true;
+			}
 		}
 	}
 }

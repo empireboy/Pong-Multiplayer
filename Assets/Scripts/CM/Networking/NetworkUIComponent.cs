@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace CM.Networking
 {
 	[RequireComponent(typeof(RectTransform))]
 	public class NetworkUIComponent : MonoBehaviour
 	{
+		[SerializeField] private bool _setInputFieldLocalAddress = false;
+
+		private void Start()
+		{
+			if (_setInputFieldLocalAddress)
+				SetInputFieldLocalAddress();
+		}
+
 		public void StartHost()
 		{
 			FindObjectOfType<CM_NetworkManager>().StartServerHost();
@@ -29,6 +37,11 @@ namespace CM.Networking
 		public void SetLocalAddress()
 		{
 			FindObjectOfType<CM_NetworkManager>().SetLocalAddress();
+		}
+
+		public void SetInputFieldLocalAddress()
+		{
+			GetComponent<InputField>().text = FindObjectOfType<CM_NetworkManager>().LocalIPAddress();
 		}
 	}
 }
