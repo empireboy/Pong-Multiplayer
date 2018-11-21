@@ -35,7 +35,7 @@ There are libraries for phaser, but this will just take a little to long to sort
 
 Networking is quiet easy if you use 39dll.dll or httpdll2. But you will need to port-forward if you want to be able to host a game.Not everyone understands how to do this. I will get this to work in time but it won't be easy for everyone to host a game. And also, most virus scanners will block incoming connection from GameMaker.
 
-The most efficiant engine I could find is Unity or Unreal. Unreal will be great for networking, but I don't need something that is perfect right now, I need to be able to finish it in time, so I will work with the build-in components in Unity.
+The most efficient engine I could find is Unity or Unreal. Unreal will be great for networking, but I don't need something that is perfect right now, I need to be able to finish it in time, so I will work with the build-in components in Unity.
 
 ## Learning Goals
 <!---
